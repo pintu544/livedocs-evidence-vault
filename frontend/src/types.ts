@@ -46,6 +46,9 @@ export interface Report {
   creditsUsed: number;
   generatedAt: string;
   mode: "llm" | "extractive";
+  /** S3 evidence archive (AWS build): presigned URLs, 7-day expiry. */
+  archive?: { runId: string; reportUrl: string; evidenceUrl: string } | null;
+  archiveError?: string | null;
 }
 
 export interface ProgressMsg {

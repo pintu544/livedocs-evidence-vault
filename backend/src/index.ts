@@ -88,7 +88,14 @@ app.post("/api/research", async (req, res) => {
     // a definite archive/archiveError pair.
     report.archive = null;
     report.archiveError = null;
-    if (archiveConfigFromEnv() !== null) {
+    const archiveConfigured = archiveConfigFromEnv() !== null;
+    if (!archiveConfigured) {
+      // Fresh run on an unconfigured deployment: say so (SPEC req 5) instead
+      // of silently looking like the pre-feature app. (Pre-feature history
+      // items never pass through this handler, so they stay silent.)
+      report.archiveError = "Evidence archive unavailable for this run.";
+    }
+    if (archiveConfigured) {
       send("archiving", "Archiving evidence to S3…");
       const archivePromise = archiveEvidence(report);
       archivePromise.catch(() => undefined); // raced below; swallow late rejections

@@ -11,13 +11,14 @@ export interface Step {
   finished: boolean;
 }
 
-const STEP_ORDER = ["parse", "search", "github", "synthesize", "done"];
+const STEP_ORDER = ["parse", "search", "github", "synthesize", "archiving", "done"];
 
 const STEP_LABELS: Record<string, string> = {
   parse: "Parsing query",
   search: "Live search via SerpApi",
   github: "GitHub stats",
   synthesize: "Building report",
+  archiving: "Archiving evidence to S3",
   done: "Report ready",
 };
 

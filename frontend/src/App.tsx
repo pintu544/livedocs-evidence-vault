@@ -5,6 +5,7 @@ import { ProgressSteps } from "./components/ProgressSteps";
 import { EntityCard } from "./components/EntityCard";
 import { ComparisonTable } from "./components/ComparisonTable";
 import { SourcesList } from "./components/SourcesList";
+import ArchivePanel from "./components/ArchivePanel";
 import { downloadMarkdown } from "./utils/export";
 import { clearHistory, loadHistory, saveToHistory } from "./utils/history";
 import type { Report } from "./types";
@@ -96,6 +97,8 @@ export default function App() {
                 from live search results, with sources below.
               </p>
             )}
+
+            <ArchivePanel report={report} />
 
             <div
               className="rounded-2xl border border-indigo-200 bg-indigo-50 p-4 sm:p-5 text-sm sm:text-base leading-relaxed"
