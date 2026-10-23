@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment / secrets — NEVER commit real keys (P-07)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log

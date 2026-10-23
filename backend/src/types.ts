@@ -1,0 +1,62 @@
+export type SourceKind = "docs" | "release" | "news" | "repo" | "page";
+
+export interface Source {
+  title: string;
+  url: string;
+  snippet?: string;
+  date?: string;
+  kind: SourceKind;
+}
+
+export interface RepoHealth {
+  fullName: string;
+  /** 0–100 composite maintenance score. */
+  score: number;
+  daysSinceRelease: number | null;
+  avgReleaseGapDays: number | null;
+  openIssues: number | null;
+  lastPushDaysAgo: number | null;
+  archived: boolean;
+  /** Human-readable signals, e.g. "Release every ~34 days". */
+  signals: string[];
+}
+
+export interface EntityResult {
+  name: string;
+  docsUrl?: string;
+  docsTitle?: string;
+  latestRelease?: string;
+  releaseDate?: string;
+  stars?: number;
+  repoUrl?: string;
+  lastUpdated?: string;
+  summary?: string;
+  health?: RepoHealth;
+  sources: Source[];
+}
+
+export interface ComparisonRow {
+  aspect: string;
+  values: string[];
+}
+
+export interface Report {
+  query: string;
+  entities: EntityResult[];
+  comparisonTable: ComparisonRow[];
+  verdict: string;
+  creditsUsed: number;
+  generatedAt: string;
+  mode: "llm" | "extractive";
+  /** Set by the S3 evidence-archive tool after a successful run (null when
+   *  archiving is unconfigured or failed — research never depends on it). */
+  archive?: { runId: string; reportUrl: string; evidenceUrl: string } | null;
+  archiveError?: string | null;
+}
+
+export interface ProgressMsg {
+  step: string;
+  detail?: string;
+  done?: boolean;
+  error?: string;
+}
