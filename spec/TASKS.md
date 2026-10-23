@@ -7,10 +7,10 @@
 - Done means: keys exist in Doppler and a test `PutObject` from the VM succeeds.
 
 ## Slice 1 — The tool (backend, end-to-end with mocked S3)
-- [ ] Scaffold personal repo `pintu544/livedocs-evidence-vault` from Pintu's LiveDocs code; confirm the unmodified app runs locally (health + one research run).
-- [ ] Implement `archiveEvidence` module: bundle builder, S3 PutObject ×2, presigned URL generation, typed failure result; wire into `POST /api/research` as best-effort; add `s3ArchiveConfigured` to `/api/health`.
-- [ ] Tests (Vitest): bundle shape; key layout; success returns both URLs; S3 failure → report still returned with `archive: null` + `archiveError` set; archiving disabled when unconfigured. All green locally.
-- [ ] Adversarial QA pass on the slice (fresh eyes): presigned-URL expiry, oversized reports, source entries with missing fields, credential leakage in logs/errors.
+- [x] Scaffold personal repo `pintu544/livedocs-evidence-vault` from Pintu's LiveDocs code; confirm the unmodified app runs locally (health + one research run). — DONE 2026-10-23 (pushed @ acdc039)
+- [x] Implement `archiveEvidence` module: bundle builder, S3 PutObject ×2, presigned URL generation, typed failure result; wire into `POST /api/research` as best-effort; add `s3ArchiveConfigured` to `/api/health`. — DONE 2026-10-23
+- [x] Tests (Vitest): bundle shape; key layout; success returns both URLs; S3 failure → report still returned with `archive: null` + `archiveError` set; archiving disabled when unconfigured. All green locally. — DONE 2026-10-23 (14/14; S3-failure path also verified live over SSE with fake credentials)
+- [x] Adversarial QA pass on the slice (fresh eyes): presigned-URL expiry, oversized reports, source entries with missing fields, credential leakage in logs/errors. — DONE 2026-10-23: 1 critical (unbounded archive await) + 5 warnings all fixed with regression tests; live re-verified.
 - Done means: local run produces a report and (with real keys) two S3 links that open the actual archived files.
 
 ## Slice 2 — UI + deploy + live proof
